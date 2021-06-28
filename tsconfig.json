@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+      "target": "es5",
+      "lib": [
+          "dom",
+          "dom.iterable",
+          "esnext"
+      ],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      // "isolatedModules": true,
+      "noEmit": false,
+      "jsx": "react-jsx"
+  },
+  "include": [
+      "src"
+  ]
+}
+// {
+//     "compilerOptions": {
+//       "outDir": "./dist/",
+//       "target": "es5",
+//       "module": "commonJS",
+//       "noImplicitAny": true,
+//       "preserveConstEnums": true,
+//       "removeComments": true,
+//       "lib": ["dom", "esnext"],
+//       "declaration": true,
+//       "declarationMap": true,
+//       "noEmit": false,
+//       "strict": true,
+//       "pretty": true,
+//       "jsx": "react",
+//       "sourceMap": true,
+//       "allowSyntheticDefaultImports": true,
+//       "resolveJsonModule": true,
+//       "allowJs": true,
+//       "moduleResolution": "node",
+//       "esModuleInterop": true,
+//     },
+//     "exclude": [
+//       "./dist/src/main/process.main.ts",
+//       "./dist/src/renderer/renderer.main.tsx",
+//       "./dist/src/renderer/App.tsx",
+//     ],
+//     "include": [
+//       "./src/main/process.main.ts",
+//       "./src/renderer/renderer.main.tsx",
+//       "./src/renderer/App.tsx",
+//     ]
+// }
