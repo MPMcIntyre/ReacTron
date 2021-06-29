@@ -1,9 +1,8 @@
 import "../globals.ts";
 const { app, BrowserWindow } = require("electron");
+const { EnableHotReload } = require("./utils/electron.utils");
 
 const path = require("path");
-// import MainPreload from "./preloads/main.window";
-
 var basepath = app.getAppPath();
 
 const mFile = path.join(basepath, "./dist/index.html");
@@ -22,6 +21,10 @@ function createWindow() {
       enableRemoteModule: false, // turn off remote
     },
   });
+
+  if (process.env.DEV) {
+    EnableHotReload(win);
+  }
 
   win.loadFile(mFile);
 }

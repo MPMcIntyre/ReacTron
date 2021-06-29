@@ -1,4 +1,6 @@
 const path = require("path");
+const { deferElectronStart } = require("./scripts/webpack.plugins");
+
 let devmode;
 if (process.env.DEV) {
   devmode = "development";
@@ -13,6 +15,8 @@ module.exports = {
     renderer: "./src/renderer/renderer.main.tsx",
     preloadMain: "./src/main/preloads/main.preload.ts",
   },
+  devtool: "source-map",
+  stats: "minimal",
   module: {
     rules: [
       {
@@ -26,9 +30,9 @@ module.exports = {
         use: "ts-loader",
       },
       {
-        test: /\.(css|scss)$/,
+        test: /\.(css|scss|sass)$/,
         exclude: /node_modules/,
-        use: ["style-loader", "css-loader"],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
@@ -37,6 +41,7 @@ module.exports = {
       },
     ],
   },
+  plugins: [new deferElectronStart()],
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
     modules: ["node_modules", "src"],
@@ -44,15 +49,23 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
-    // chunkFilename: "[id].[chunkhash]",
   },
-  externals: (function () {
-    var IGNORES = ["electron", "electron-reload"];
-    return function (context, request, callback) {
-      if (IGNORES.indexOf(request) >= 0) {
-        return callback(null, "require('" + request + "')");
-      }
-      return callback();
-    };
-  })(),
+  // externals: ["electron"],
+  externals: ({ context, request }, callback) => {
+    var IGNORES = ["electron", "fs"];
+    if (IGNORES.indexOf(request) >= 0) {
+      return callback(null, "require('" + request + "')");
+    }
+    return callback();
+  },
+
+  // externals: (function () {
+  //   var IGNORES = ["electron"];
+  //   return function (context, request, callback) {
+  //     if (IGNORES.indexOf(request) >= 0) {
+  //       return callback(null, "require('" + request + "')");
+  //     }
+  //     return callback();
+  //   };
+  // })(),
 };

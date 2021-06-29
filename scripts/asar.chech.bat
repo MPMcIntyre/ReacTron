@@ -1,1 +1,0 @@
-npx asar extract app.asar destfolder
