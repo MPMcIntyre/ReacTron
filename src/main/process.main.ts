@@ -16,7 +16,7 @@ function createWindow() {
       //   preload: "preload.js",
       preload: preload,
       //!security
-      nodeIntegration: true,
+      nodeIntegration: false,
       contextIsolation: true, // protect against prototype pollution
       enableRemoteModule: false, // turn off remote
     },

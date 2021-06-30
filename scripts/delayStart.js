@@ -13,14 +13,14 @@ const testTimer = setTimeout(() => {
 // * This script (hopefully) recieves a dgram (udp) message from the webpack plugin deferElectronStart
 server.on("message", (msg, rinfo) => {
   if (msg.toString() === "webpack-completed") {
-    console.log("webpack completed, launching Electron :)");
+    console.log("Webpack completed, launching Electron :)");
     clearTimeout(testTimer);
     server.close();
   }
 });
-
 server.bind(process.env.DGRAM_SCKT);
 
+// * Info text
 displayInformativeText = () => {
   console.log(`MAX WAIT TIME EXCEEDED! (${process.env.WAIT_TIME}ms)`);
   console.log(
@@ -43,6 +43,7 @@ displayInformativeText = () => {
   server.close();
 };
 
+// * Server error handling
 server.on("error", (err) => {
   console.log(`server error:\n${err.stack}`);
   server.close();
