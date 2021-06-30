@@ -1,0 +1,135 @@
+{
+  "name": "electron-react-boilerplate",
+  "productName": "ReacTron",
+  "description": "Create electron apps with React fast",
+  "homepage": "https://www.github.com/MPMcintyre",
+  "version": "1.0.0",
+  "main": "./dist/main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "set DEV=true&& node ./scripts/StartDev.js",
+    "rebuild": "electron-builder install-app-deps",
+    "package": "node ./scripts/Package",
+    "postinstall": "webpack --mode production &&  electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "open": "^8.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "allowToChangeInstallationDirectory": true,
+  "build": {
+    "appId": "app.boilerplate.Alt",
+    "productName": "ReacTron",
+    "copyright": "Copyright © 2021 M.P. McIntyre",
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "type": "distribution",
+      "hardenedRuntime": true,
+      "entitlements": "/dist/assets/entitlements.mac.plist",
+      "entitlementsInherit": "/dist/assets/entitlements.mac.plist",
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "/dist/",
+      "output": "release"
+    },
+    "files": [
+      "!**/*",
+      "dist/*",
+      "dist/assets/*"
+    ]
+  },
+  "publish": {
+    "provider": "Alt-Innovations",
+    "owner": "Alt-Innovations",
+    "repo": "www.github.com/alt-innovations"
+  },
+  "keywords": [
+    "electron",
+    "boilerplate",
+    "react",
+    "typescript",
+    "ts",
+    "sass",
+    "webpack",
+    "hot",
+    "reload",
+    "serverless"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.7",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.8",
+    "babel-loader": "^8.2.2",
+    "browser-sync": "^2.27.3",
+    "concurrently": "^6.2.0",
+    "css-loader": "^5.2.6",
+    "dgram": "^1.0.1",
+    "electron": "^13.1.4",
+    "electron-builder": "^22.11.7",
+    "electron-notarize": "^1.0.0",
+    "electron-rebuild": "^2.3.5",
+    "file-loader": "^6.2.0",
+    "node-loader": "^2.0.0",
+    "node-sass": "^6.0.1",
+    "path": "^0.12.7",
+    "sass-loader": "^12.1.0",
+    "source-map": "^0.7.3",
+    "source-map-loader": "^3.0.0",
+    "style-loader": "^3.0.0",
+    "ts": "^0.2.2",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.4",
+    "webpack": "^5.41.1",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "webpack-cli": "^4.7.2"
+  },
+  "author": {
+    "name": "Michael McIntyre",
+    "email": "mpmcintyre@yahoo.com",
+    "url": "https://github.com/MPMcintyre"
+  },
+  "contributors": [
+    {
+      "name": "Michael McIntyre",
+      "email": "mpmcintyre@yahoo.com",
+      "url": "https://github.com/MPMcintyre"
+    }
+  ],
+  "repository": {
+    "origin": "https://github.com/MPMcintyre"
+  }
+}
