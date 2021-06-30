@@ -57,12 +57,6 @@ module.exports.declareCurrentPack = class {
       console.log(`Error: ${error}`);
     });
 
-    compiler.hooks.invalid.tap("InvalidCheck", (fileName, changeTime) => {
-      let fileRef = fileName.split("\\");
-      let file = fileRef[fileRef.length - 1];
-      console.log(`Invalid file warning on: ${file}`);
-    });
-
     compiler.hooks.watchClose.tap("closeCheck", (error) => {
       console.log(`Webpack watch has stopped`);
     });

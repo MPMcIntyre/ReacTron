@@ -1,7 +1,5 @@
 const concurrently = require("concurrently");
 const { settings } = require("../developerSettings.js");
-let ipcSocket = settings.ipcPort;
-let deferTime = settings.electronDeferTime;
 
 concurrently(
   [
@@ -9,13 +7,16 @@ concurrently(
       command: "yarn webpack --watch",
       name: "webpack",
       prefixColor: "green",
-      env: { DGRAM_SCKT: ipcSocket },
+      env: { DGRAM_SCKT: settings.ipcPort },
     },
     {
       command: "node ./scripts/DelayStart&&yarn electron .",
       name: "electron-main",
       prefixColor: "blue",
-      env: { DGRAM_SCKT: ipcSocket, DEFER_TIME: deferTime },
+      env: {
+        DGRAM_SCKT: settings.ipcPort,
+        DEFER_TIME: settings.electronDeferTime,
+      },
     },
   ],
   {
