@@ -1,4 +1,8 @@
-const { contextBridge } = require("electron");
+const { contextBridge, ipcRenderer } = require("electron");
+
+const invoke = (channel: string, args: any) => {
+  ipcRenderer.invoke(channel, args);
+};
 
 const isDev = () => {
   return process.env.DEV;
@@ -6,4 +10,5 @@ const isDev = () => {
 
 contextBridge.exposeInMainWorld("GlobalApi", {
   isDev: isDev(),
+  invoke: invoke,
 });

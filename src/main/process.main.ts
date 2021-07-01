@@ -1,6 +1,22 @@
 import "../globals.ts";
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const { EnableHotReload } = require("./utils/electron.utils");
+const open = require("open");
+
+ipcMain.handle("openURL", (event: {}, URL: string) => {
+  console.log(`Opening ${URL}`);
+  try {
+    open(URL);
+  } catch (err) {
+    console.log(err);
+  }
+  return true;
+});
+
+// opens the url in the default browser
+// const openExternal = (link: string) => {
+//   return open(link);
+// };
 
 const path = require("path");
 var basepath = app.getAppPath();

@@ -3,7 +3,9 @@ import React from "react";
 
 console.log("This tests sourcemap");
 
-let openURL = window.mainApi.openExternal;
+let openURL = (URL: string) => {
+  window.GlobalApi.invoke("openURL", URL);
+};
 
 declare const window: any;
 const styles = {
