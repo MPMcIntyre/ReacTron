@@ -7,7 +7,7 @@
   "main": "./dist/main.js",
   "license": "MIT",
   "scripts": {
-    "start": "set DEV=true&& node ./scripts/StartDev.js",
+    "start": "node ./scripts/StartDev.js",
     "rebuild": "electron-builder install-app-deps",
     "package": "node ./scripts/Package",
     "postinstall": "webpack --mode production &&  electron-builder install-app-deps"

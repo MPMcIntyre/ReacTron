@@ -7,7 +7,7 @@ concurrently(
       command: "yarn webpack --watch",
       name: "webpack",
       prefixColor: "green",
-      env: { DGRAM_SCKT: settings.ipcPort },
+      env: { DGRAM_SCKT: settings.ipcPort, DEV: true },
     },
     {
       command: "node ./scripts/DelayStart&&yarn electron .",
@@ -16,6 +16,7 @@ concurrently(
       env: {
         DGRAM_SCKT: settings.ipcPort,
         DEFER_TIME: settings.electronDeferTime,
+        DEV: true,
       },
     },
   ],

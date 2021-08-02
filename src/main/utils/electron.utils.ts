@@ -10,6 +10,7 @@ export function EnableHotReload(window: any) {
       let fileDir = path.join(distDir, file);
       fs.watch(fileDir, (event: string, filename: string) => {
         if (filename) {
+          console.log("Files updated: Reloading page");
           window.reload();
         }
       });
