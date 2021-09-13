@@ -1,5 +1,5 @@
 console.log("Initializing");
-
+const ThreadsPlugin = require("threads-plugin");
 const { settings } = require("./developerSettings");
 const path = require("path");
 const {
@@ -19,6 +19,7 @@ if (process.env.DEV) {
   var devmode = "production";
   var devTool = false;
 }
+var stats = process.env.verbose ? "normal" : "none";
 
 // * General rule-set and loaders can remain similar for both renderer and main
 const globalRuleSet = [
@@ -26,25 +27,30 @@ const globalRuleSet = [
   {
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
-    use: "babel-loader",
+    use: ["babel-loader", "source-map-loader"],
   },
   // * Typescript
   {
     test: /\.(ts|tsx)$/,
     exclude: /node_modules/,
-    use: "ts-loader",
+    use: ["ts-loader", "source-map-loader"],
+    // options: {
+    //   compilerOptions: {
+    //     module: "esnext",
+    //   },
+    // },
   },
   // * Styling (css, scss, sass)
   {
     test: /\.(css|scss|sass)$/,
     exclude: /node_modules/,
-    use: ["style-loader", "css-loader", "sass-loader"],
+    use: ["style-loader", "css-loader", "sass-loader", "source-map-loader"],
   },
   // * Files
   {
-    test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
+    test: /\.(jpg|jpeg|png|gif|mp3|svg|ttf|woff|otf)$/,
     exclude: /node_modules/,
-    use: ["file-loader"],
+    use: ["file-loader", "source-map-loader"],
   },
 ];
 
@@ -59,10 +65,11 @@ module.exports = [
   {
     target: "electron-renderer",
     mode: devmode,
-    stats: "none", //Custom stats are generated with declareCurrentPack plugin
+    stats: stats, //Custom stats are generated with declareCurrentPack plugin
     //Entries go here (code-splitting requires seperate entries)
     entry: {
       renderer: "./src/renderer/renderer.main.tsx",
+      loader: "./src/renderer/loader.main.tsx",
     },
     //Outputs are automatic
     output: {
@@ -91,7 +98,7 @@ module.exports = [
   {
     target: "electron-main",
     mode: devmode,
-    stats: "none", //Custom stats are generated with declareCurrentPack plugin
+    stats: stats, //Custom stats are generated with declareCurrentPack plugin
     //Entries go here (code-splitting requires seperate entries)
     entry: {
       main: "./src/main/process.main.ts",
@@ -114,6 +121,7 @@ module.exports = [
         reportFilename: "main.bundle.html",
         analyzerPort: settings.bundleAnalyzerPortB,
       }),
+      new ThreadsPlugin(),
     ],
     resolve: {
       extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
