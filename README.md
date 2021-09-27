@@ -42,6 +42,7 @@ This script starts the Package.js script, which cleans up the `./dist` folder, r
 
 <h4>Postinstall</h4>
 This script is used as a hook for electron-builder.
-
+<div align="CENTER"> 
 <h2>Notes:</h2>
 This template was created to ease the development process for myself, yet I think there might be a few people that prefer to use a simplistic serverless setup such as this one. There is still plenty of work that will go into this template, but it will be incremental. If you like this project and wish to support me, please feel free to buy me a coffee or something.❤️
+</div>
