@@ -12,7 +12,7 @@
   <li>showBundleAnalyzer: is used in webpack.config.js to show the bundle analyzer or not</li>
   <li>bundleAnalyzerPortA: Bundle analyzer port for the renderer files</li>
   <li>bundleAnalyzerPortB: Bundle analyzer port for the main files
-<ul>
+</ul>
 
 <h3>Scripts</h3>
 <h4>asar.check.bat</h4>
