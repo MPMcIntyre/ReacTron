@@ -17,6 +17,11 @@ concurrently(
         DGRAM_SCKT: settings.ipcPort,
         DEFER_TIME: settings.electronDeferTime,
         DEV: true,
+        REACT_DEV_TOOLS: settings.reactDevTools ? settings.reactDevTools : "",
+        REDUX_DEV_TOOLS: settings.reduxDevTools ? settings.reduxDevTools : "",
+        GRAPHQL_DEV_TOOLS: settings.graphQLDevTools
+          ? settings.graphQLDevTools
+          : "",
       },
     },
   ],

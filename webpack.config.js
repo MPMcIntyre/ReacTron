@@ -34,11 +34,6 @@ const globalRuleSet = [
     test: /\.(ts|tsx)$/,
     exclude: /node_modules/,
     use: ["ts-loader", "source-map-loader"],
-    // options: {
-    //   compilerOptions: {
-    //     module: "esnext",
-    //   },
-    // },
   },
   // * Styling (css, scss, sass)
   {
@@ -54,12 +49,6 @@ const globalRuleSet = [
   },
 ];
 
-// * Export set-up:
-// module.exports = [
-//   {renderer Oject},
-//   {Main Oject},
-// ]
-
 module.exports = [
   // ! Electron renderer
   {
@@ -69,7 +58,6 @@ module.exports = [
     //Entries go here (code-splitting requires seperate entries)
     entry: {
       renderer: "./src/renderer/renderer.main.tsx",
-      loader: "./src/renderer/loader.main.tsx",
     },
     //Outputs are automatic
     output: {

@@ -1,13 +1,16 @@
-import "../globals.ts";
-const { app, BrowserWindow, ipcMain } = require("electron");
-const { EnableHotReload } = require("./utils/electron.utils");
-const open = require("open");
-
+const { app, BrowserWindow, ipcMain, session } = require("electron");
+const {
+  EnableHotReload,
+  EnableReactDevtools,
+} = require("./utils/electron.utils");
+const openURL = require("open");
 const path = require("path");
+
+// Get application path
 var basepath = app.getAppPath();
 
-const mFile = path.join(basepath, "./dist/index.html");
-const preload = path.join(basepath, "./dist/preloadMain.js");
+const mFile = path.join(basepath, "dist", "index.html");
+const preload = path.join(basepath, "dist", "preloadMain.js");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -30,14 +33,18 @@ function createWindow() {
   win.loadFile(mFile);
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  // * Load extentions into the browser if in development mode
+  process.env.DEV && (await EnableReactDevtools(session, basepath));
+
   createWindow();
 
-  app.on("activate", function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
+  // app.on("activate", function () {
+  //   if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  // });
 });
 
+// * Close app when all windows are closed, except if on macOS
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
 });
@@ -46,7 +53,7 @@ app.on("window-all-closed", function () {
 ipcMain.handle("openURL", (event: {}, URL: string) => {
   console.log(`Opening ${URL}`);
   try {
-    open(URL);
+    openURL(URL);
   } catch (err) {
     console.log(err);
   }

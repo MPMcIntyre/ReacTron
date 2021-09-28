@@ -19,7 +19,45 @@ export function EnableHotReload(window: any) {
         }
       }
     });
-  } catch (err) {
-    throw new Error(err);
+  } catch (err: any) {
+    // throw new Error(err);
+  }
+}
+
+export async function EnableReactDevtools(session: any, basepath: string) {
+  let ReactDevToolPath = path.join(
+    basepath,
+    "scripts",
+    "react-devtools",
+    "3.4.2"
+  );
+  let ReduxDevToolPath = path.join(
+    basepath,
+    "scripts",
+    "redux-devtools",
+    "2.17.1"
+  );
+  let GraphQLDevToolPath = path.join(
+    basepath,
+    "scripts",
+    "graphql-devtools",
+    "0.1.2"
+  );
+
+  process.env.REACT_DEV_TOOLS && (await installDevTools(ReactDevToolPath));
+  process.env.REDUX_DEV_TOOLS && (await installDevTools(ReduxDevToolPath));
+  process.env.GRAPHQL_DEV_TOOLS && (await installDevTools(GraphQLDevToolPath));
+
+  async function installDevTools(devpath: string) {
+    try {
+      await session.defaultSession.loadExtension(
+        devpath,
+        // allowFileAccess is required to load the devtools extension on file:// URLs.
+        { allowFileAccess: true }
+      );
+      console.log("! Ignore the previous warnings !");
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

@@ -1,13 +1,10 @@
-// import react from "react";
-import React from "react";
-
-console.log("This tests sourcemap");
+// declare const window: any;
 
 let openURL = (URL: string) => {
-  window.GlobalApi.invoke("openURL", URL);
+  console.log(URL);
+  // window.GlobalApi.invoke("openURL", URL);
 };
 
-declare const window: any;
 const styles = {
   logo: {
     width: "50%",
@@ -28,15 +25,9 @@ const styles = {
   },
 };
 
-let imagePath: string;
-if (window.GlobalApi.isDev) {
-  imagePath = "./assets/ReacTron.png";
-} else {
-  imagePath = "./assets/ReacTron.png";
-}
+let imagePath: string = "./assets/ReacTron.png";
 
-function App() {
-  console.log(document.getElementsByName("body"));
+function App(props: any) {
   return (
     <div className="container">
       <img src={imagePath} alt="Reactron logo" style={styles.logo} />
@@ -45,7 +36,11 @@ function App() {
       <div style={styles.buttonGrid}>
         <button
           style={styles.button}
+          onMouseEnter={(e) => {
+            console.log(e);
+          }}
           onClick={() => {
+            console.log("documentation");
             openURL("https://github.com/MPMcIntyre/ReacTron");
           }}>
           Documentation 👀
