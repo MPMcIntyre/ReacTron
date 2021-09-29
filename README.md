@@ -5,6 +5,13 @@
 </div>
 <h1>Version history:</h1>
 <ul>
+<li>1.1.1 - Minor updates</li>
+  <ul>
+    <li>Update package.json (removed some bloat with security risks):</li>
+    <li>Updated readme</li>
+    <li>Added github sponsors</li>
+    <li>Audited packages (0 vulnerabilites)</li>
+  </ul>
 <li>1.1.0 - First major revision (Public release)</li>
   <ul>
     <li>Added developer extensions:</li>
@@ -23,6 +30,10 @@
       <ul>
         <li>Added local font installation to renderer.main.tsx</li>
         <li>Updated react-app UI</li>
+      </ul>
+    <li>General:</li>
+      <ul>
+        <li>Updated readme</li>
       </ul>
   </ul>
 <li>1.0.0 - First Commit (Private release)</li>
