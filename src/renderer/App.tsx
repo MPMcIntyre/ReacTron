@@ -44,9 +44,9 @@ export default function App() {
         <span
           className="altInno"
           onClick={() => {
-            openURL("http://www.alt-innovations.com");
+            openURL("https://mpmcintyre.online");
           }}>
-          Alt-Innovations
+          Michael Mcintyre
         </span>
       </h1>
     </div>
