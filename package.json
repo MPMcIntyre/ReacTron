@@ -3,7 +3,7 @@
   "productName": "ReacTron",
   "description": "Create electron apps with React fast",
   "homepage": "https://www.github.com/MPMcintyre",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "./dist/main.js",
   "license": "MIT",
   "scripts": {
@@ -25,6 +25,7 @@
     "productName": "ReacTron",
     "copyright": "Copyright © 2021 M.P. McIntyre",
     "mac": {
+      "icon": "./dist/assets/icons/mac/icon.icns",
       "target": [
         "dmg"
       ],
@@ -49,6 +50,7 @@
       ]
     },
     "win": {
+      "icon": "./dist/assets/icons/win/icon.ico",
       "target": [
         "nsis"
       ]
@@ -65,8 +67,7 @@
     },
     "files": [
       "!**/*",
-      "dist/*",
-      "dist/assets/*"
+      "dist/"
     ]
   },
   "publish": {
@@ -84,42 +85,38 @@
     "webpack",
     "hot",
     "reload",
-    "serverless"
+    "serverless",
+    "devTools"
   ],
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/node": "^7.14.7",
-    "@babel/plugin-proposal-class-properties": "^7.14.5",
-    "@babel/preset-env": "^7.14.7",
-    "@babel/preset-react": "^7.14.5",
-    "@babel/preset-typescript": "^7.14.5",
+    "@babel/types": "^7.15.6",
+    "@types/css-font-loading-module": "^0.0.6",
     "@types/react": "^17.0.11",
-    "@types/react-devtools": "^3.6.0",
     "@types/react-dom": "^17.0.8",
-    "babel-loader": "^8.2.2",
+    "@types/react-router-dom": "^5.1.8",
     "concurrently": "^6.2.0",
     "css-loader": "^5.2.6",
     "electron": "^13.1.4",
     "electron-builder": "^22.11.7",
+    "electron-icon-maker": "^0.0.5",
     "electron-notarize": "^1.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
+    "ncp": "^2.0.0",
     "node-loader": "^2.0.0",
     "node-sass": "^6.0.1",
-    "path": "^0.12.7",
     "sass-loader": "^12.1.0",
     "source-map": "^0.7.3",
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.0.0",
     "threads-plugin": "^1.4.0",
-    "ts-loader": "^9.2.3",
-    "typescript": "^4.3.4",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.3.5",
+    "url-loader": "^4.1.1",
     "webpack": "^5.41.1",
     "webpack-bundle-analyzer": "^4.4.2",
-    "webpack-cli": "^4.7.2"
-  },
-  "resolutions": {
-    "electron": "^11.0.1"
+    "webpack-cli": "^4.7.2",
+    "webpack-watch-files-plugin": "^1.1.0"
   },
   "author": {
     "name": "Michael McIntyre",

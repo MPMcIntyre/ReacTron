@@ -1,70 +1,42 @@
-// declare const window: any;
-
+declare const window: any;
 let openURL = (URL: string) => {
-  console.log(URL);
-  // window.GlobalApi.invoke("openURL", URL);
+  window.GlobalApi.invoke("openURL", URL);
 };
 
-const styles = {
-  logo: {
-    width: "50%",
-  },
-  buttonGrid: {
-    display: "grid",
-    padding: "2rem",
-    gap: "1rem",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    alignItems: "center",
-  },
-  button: {
-    margin: "auto",
-    width: "100%",
-    height: "4rem",
+let logoImgPath: string = "./assets/images/ReacTron.png";
+let gitHubImgPath: string = "./assets/images/github.png";
 
-    fontSize: "1rem",
-  },
-};
-
-let imagePath: string = "./assets/ReacTron.png";
-
-function App(props: any) {
+export default function App() {
   return (
     <div className="container">
-      <img src={imagePath} alt="Reactron logo" style={styles.logo} />
-
+      <img src={logoImgPath} alt="Reactron logo" className="logo" />
       <p>Make Electron-React app devlopment simple</p>
-      <div style={styles.buttonGrid}>
+      <div className="buttonGrid">
         <button
-          style={styles.button}
+          className="button"
           onMouseEnter={(e) => {
             console.log(e);
           }}
           onClick={() => {
             console.log("documentation");
-            openURL("https://github.com/MPMcIntyre/ReacTron");
+            openURL("https://github.com/MPMcIntyre/ReacTron#readme");
           }}>
           Documentation 👀
         </button>
         <button
-          style={styles.button}
-          onClick={() => {
-            openURL("https://github.com/MPMcIntyre/ReacTron");
-          }}>
-          Donate 💖
-        </button>
-        <button
-          style={styles.button}
+          className="button"
           onClick={() => {
             openURL("https://github.com/MPMcIntyre/ReacTron/issues");
           }}>
           Issues 🤔
         </button>
         <button
-          style={styles.button}
+          className="button"
           onClick={() => {
-            openURL("https://github.com/MPMcIntyre/ReacTron");
+            openURL("https://github.com/sponsors/MPMcIntyre");
           }}>
-          Forum 👨‍👩‍👧‍👦
+          <span>Become a sponsor</span>
+          <img className="github" src={gitHubImgPath} />
         </button>
       </div>
       <h1>
@@ -80,5 +52,3 @@ function App(props: any) {
     </div>
   );
 }
-
-export default App;

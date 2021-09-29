@@ -39,17 +39,18 @@ app.whenReady().then(async () => {
 
   createWindow();
 
-  // app.on("activate", function () {
-  //   if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  // });
+  // This is mainly targeted for MacOS, if the window is re-activated, it opens a new window, unless it already exists
+  app.on("activate", function () {
+    BrowserWindow.getAllWindows().length === 0 && createWindow();
+  });
 });
 
 // * Close app when all windows are closed, except if on macOS
 app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") app.quit();
+  process.platform !== "darwin" && app.quit();
 });
 
-// * Handle the ipcRenderer invocations with ipcMain.handle("channel", callback(event, args))
+// // * Handle the ipcRenderer invocations with ipcMain.handle("channel", callback(event, args))
 ipcMain.handle("openURL", (event: {}, URL: string) => {
   console.log(`Opening ${URL}`);
   try {

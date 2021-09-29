@@ -1,10 +1,13 @@
 console.log("Initializing");
 const ThreadsPlugin = require("threads-plugin");
 const { settings } = require("./developerSettings");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const {
   deferElectronStart,
   declareCurrentPack,
+  FontLoader,
+  AssetLoader,
 } = require("./scripts/webpack.plugins");
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -19,7 +22,13 @@ if (process.env.DEV) {
   var devmode = "production";
   var devTool = false;
 }
-var stats = process.env.verbose ? "normal" : "none";
+var stats = settings.webpackStats === "true" ? "normal" : "none";
+
+// * Copy font files over
+FontLoader();
+
+// * Copy asset files over
+AssetLoader();
 
 // * General rule-set and loaders can remain similar for both renderer and main
 const globalRuleSet = [
@@ -27,7 +36,7 @@ const globalRuleSet = [
   {
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
-    use: ["babel-loader", "source-map-loader"],
+    use: ["ts-loader", "source-map-loader"],
   },
   // * Typescript
   {
@@ -43,7 +52,7 @@ const globalRuleSet = [
   },
   // * Files
   {
-    test: /\.(jpg|jpeg|png|gif|mp3|svg|ttf|woff|otf)$/,
+    test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
     exclude: /node_modules/,
     use: ["file-loader", "source-map-loader"],
   },
@@ -69,12 +78,15 @@ module.exports = [
       rules: globalRuleSet,
     },
     plugins: [
-      new declareCurrentPack("Electron renderer", { showStats: false }),
+      new declareCurrentPack("Electron renderer", {
+        showStats: settings.webpackStats ? false : true,
+      }),
       new BundleAnalyzerPlugin({
         analyzerMode: analyzer,
         reportFilename: "renderer.bundle.html",
         analyzerPort: settings.bundleAnalyzerPortA,
       }),
+      new HtmlWebpackPlugin({ template: "./src/index.html" }),
     ],
     resolve: {
       extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
@@ -102,7 +114,9 @@ module.exports = [
       rules: globalRuleSet,
     },
     plugins: [
-      new declareCurrentPack("Electron main", { showStats: true }),
+      new declareCurrentPack("Electron main", {
+        showStats: settings.webpackStats ? false : true,
+      }),
       new deferElectronStart(),
       new BundleAnalyzerPlugin({
         analyzerMode: analyzer,

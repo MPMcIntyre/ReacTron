@@ -1,5 +1,8 @@
 const dgram = require("dgram");
 const socket = dgram.createSocket("udp4");
+const fs = require("fs");
+const path = require("path");
+const ncp = require("ncp").ncp;
 
 // * IPC if environment variable is created
 process.env.DGRAM_SCKT && socket.connect(process.env.DGRAM_SCKT);
@@ -17,7 +20,7 @@ module.exports.deferElectronStart = class {
           socket.send("webpack-completed");
           socket.close();
         } catch (err) {}
-      }, 500);
+      }, 1000);
       return true;
     });
   }
@@ -34,7 +37,7 @@ module.exports.declareCurrentPack = class {
     if (this.showStats) {
       compiler.hooks.initialize.tap("InitCheck", (compilation) => {
         // return true to emit the output, otherwise false
-        console.log("Starting compilation");
+        console.log("Starting compilation for " + this.name);
       });
     }
 
@@ -87,3 +90,99 @@ module.exports.declareCurrentPack = class {
     });
   }
 };
+
+module.exports.FontLoader = async () => {
+  ncp.limit = 16;
+  const dirPath = path.join(__dirname, "../", "src", "renderer", "fonts");
+  const distPath = path.join(__dirname, "../", "dist", "fonts");
+
+  fs.rmSync(distPath, { recursive: true });
+  fs.mkdirSync(distPath);
+
+  if (fs.existsSync(dirPath)) {
+    files = fs.readdirSync(dirPath);
+    await ncp(dirPath, distPath, function (err) {
+      if (err) {
+        return console.error(err);
+      }
+      console.log("Fonts loaded");
+    });
+  }
+};
+
+module.exports.AssetLoader = async () => {
+  ncp.limit = 16;
+  const dirPath = path.join(__dirname, "../", "src", "assets");
+  const distPath = path.join(__dirname, "../", "dist", "assets");
+
+  fs.rmSync(distPath, { recursive: true });
+  fs.mkdirSync(distPath);
+
+  if (fs.existsSync(dirPath)) {
+    files = fs.readdirSync(dirPath);
+    ncp(dirPath, distPath, function (err) {
+      if (err) {
+        return console.error(err);
+      }
+      console.log("Assets loaded");
+    });
+  }
+};
+
+// module.exports.AssetLoader = class {
+//   constructor(options) {
+//     this.options = options;
+//   }
+//   apply(compiler) {
+//     compiler.hooks.watchRun.tapAsync("AssetLoader", async (compilation) => {
+//       await FontAndAssetLoader();
+//     });
+//     compiler.hooks.run.tapAsync("AssetLoader", async (compilation) => {
+//       await FontAndAssetLoader();
+//     });
+
+//     async function FontAndAssetLoader() {
+//       // * Assets
+//       ncp.limit = 16;
+//       // Specify paths
+//       const assetDirPath = path.join(__dirname, "../", "src", "assets");
+//       const assetDistPath = path.join(__dirname, "../", "dist", "assets");
+//       const fontDirPath = path.join(
+//         __dirname,
+//         "../",
+//         "src",
+//         "renderer",
+//         "fonts"
+//       );
+//       const fontDistPath = path.join(__dirname, "../", "dist", "fonts");
+//       // Remove previous directories and recurring files and folders
+//       fs.rmSync(assetDistPath, { recursive: true });
+//       fs.rmSync(fontDistPath, { recursive: true });
+
+//       // Create directories again
+//       fs.mkdirSync(assetDistPath);
+//       fs.mkdirSync(fontDistPath);
+
+//       // Populate directories
+//       // * Assets
+//       if (fs.existsSync(assetDirPath)) {
+//         ncp(assetDirPath, assetDistPath, function (err) {
+//           if (err) {
+//             return console.error(err);
+//           }
+//           console.log("Assets loaded");
+//         });
+//       }
+
+//       // * Fonts
+//       if (fs.existsSync(fontDirPath)) {
+//         ncp(fontDirPath, fontDistPath, function (err) {
+//           if (err) {
+//             return console.error(err);
+//           }
+//           console.log("Fonts loaded");
+//         });
+//       }
+//     }
+//   }
+// };

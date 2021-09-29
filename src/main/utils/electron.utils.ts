@@ -8,6 +8,7 @@ let previousUpdateTime: any = new Date();
 export function EnableHotReload(window: any) {
   try {
     let fileDir = path.join(distDir, "renderer.js");
+
     fs.watch(fileDir, (event: string, filename: string) => {
       if (filename) {
         let thisUpdateTime: any = new Date();
@@ -50,11 +51,13 @@ export async function EnableReactDevtools(session: any, basepath: string) {
 
   async function installDevTools(devpath: string) {
     try {
-      await session.defaultSession.loadExtension(
-        devpath,
-        // allowFileAccess is required to load the devtools extension on file:// URLs.
-        { allowFileAccess: true }
-      );
+      await session.defaultSession
+        .loadExtension(
+          devpath,
+          // allowFileAccess is required to load the devtools extension on file:// URLs.
+          { allowFileAccess: true }
+        )
+        .catch();
       console.log("! Ignore the previous warnings !");
     } catch (err) {
       console.log(err);
