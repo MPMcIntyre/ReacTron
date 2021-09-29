@@ -33,9 +33,9 @@
 <h4>developerSettings.js</h4>
 <ul>
   <li>webpackStats: If false, custom messages are displayed, else, normal webpack messages are displayed</li>
-  <li>electronDeferTime: time-out time for the DelayStart.js script</li>
-  <li>ipcPort: The udp port that dgram uses for webpack to emit the <li>compilation complete event to DelayStart.js</li>
-  <li>showBundleAnalyzer: is used in webpack.config.js to show the bundle analyzer or not</li>
+  <li>electronDeferTime: Time-out time for the DelayStart.js script</li>
+  <li>ipcPort: The udp port that dgram uses for webpack to emit the compilation complete event to DelayStart.js</li>
+  <li>showBundleAnalyzer: Is used in webpack.config.js to show the bundle analyzer or not</li>
   <li>bundleAnalyzerPortA: Bundle analyzer port for the renderer files</li>
   <li>bundleAnalyzerPortB: Bundle analyzer port for the main files
   <li>reactDevTools: Enable/disable react developer tools extension </li>
@@ -47,8 +47,8 @@
 <h4>asar.check.bat</h4>
 This script is just a placeholder for MS development environments, and can be placed inside of the packaged app to extract the .asar file for review. This script is not automatically run.
 
-<h4>SelayStart.js</h4>
-This script is one of the scripts that runs concurrently with the webpack bundler. Its sole purpouse is to simply delay until the webpack has finished bundling or until the time-out has lapsed. Once this function has completed, it closes and the StartDev.js script will launch electron.
+<h4>DelayStart.js</h4>
+This script is one of the scripts that runs concurrently with the webpack bundler. It's sole purpouse is to simply delay until the webpack has finished bundling or until the time-out has lapsed. Once this function has completed, it closes and the StartDev.js script will launch electron.
 
 <h4>Package.js</h4>
 This script is only run when packaging the app. It provides a cleanup of .map.js files and removes any webpack bundled javascript files. This is to ensure minification and obscurity when webpack compiles in production mode.
@@ -81,6 +81,7 @@ When using the developer tools, it is common to see error messages regarding the
 <h1></h1>
 This template was created to ease the development process for myself, yet I think there might be a few people that prefer to use a simplistic serverless setup such as this one. There is still plenty of work that will go into this template, but it will be incremental. If you like this project and wish to support me, please feel free to buy me a coffee or something.❤️
 
+<br/>
 <a href="https://github.com/sponsors/MPMcIntyre" target="_blank" rel="noreferrer"> 
   <img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=<url>" alt="githubSponsors-img"/>
 </a>
