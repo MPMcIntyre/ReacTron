@@ -80,7 +80,7 @@ This file contains custom webpack plugins that use webpack hooks to detect failu
 #### Installing local fonts:
 
 Fonts can be downloaded in any html supported format (.ttf, woff2, etc.), added to the `font`
-folder inside of `./src`, then added by including it in the `fonts` object inside of `renderer.main.tsx`. Remember that it is an object that uses the name of the font file as the object key, and the font format as the value.
+folder inside of `./src`, then added by including it in the `fonts` object inside of `renderer.main.tsx`. Remember that it is an object that uses the name of the font file as the object key (string), and the font format as the value e.g. `fonts = {Questrial:"ttf"}`.
 
 # Commands:
 
