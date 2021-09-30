@@ -23,7 +23,7 @@
   "build": {
     "appId": "app.boilerplate.Alt",
     "productName": "ReacTron",
-    "copyright": "Copyright © 2021 M.P. McIntyre",
+    "copyright": "MIT",
     "mac": {
       "icon": "./dist/assets/icons/mac/icon.icns",
       "target": [
@@ -71,9 +71,9 @@
     ]
   },
   "publish": {
-    "provider": "Alt-Innovations",
-    "owner": "Alt-Innovations",
-    "repo": "www.github.com/alt-innovations"
+    "provider": "Michael McIntyre",
+    "owner": "Michael McIntyre",
+    "repo": "https://github.com/MPMcintyre"
   },
   "keywords": [
     "electron",
@@ -89,7 +89,6 @@
     "devTools"
   ],
   "devDependencies": {
-    "@babel/types": "^7.15.6",
     "@types/css-font-loading-module": "^0.0.6",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.8",
@@ -113,8 +112,7 @@
     "typescript": "^4.3.5",
     "webpack": "^5.41.1",
     "webpack-bundle-analyzer": "^4.4.2",
-    "webpack-cli": "^4.7.2",
-    "webpack-watch-files-plugin": "^1.1.0"
+    "webpack-cli": "^4.7.2"
   },
   "author": {
     "name": "Michael McIntyre",
