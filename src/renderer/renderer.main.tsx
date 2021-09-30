@@ -5,6 +5,7 @@ import App from "./App";
 
 const relativePath = "./fonts/";
 
+// *Insert any local fonts here
 let fonts: any = { Questrial: "ttf" };
 
 // Add fonts to the document
@@ -24,6 +25,7 @@ async function loadFonts() {
   }
 }
 
+// * Once fonts have loaded, React will render the page
 loadFonts().then(() => {
   ReactDOM.render(
     <React.StrictMode>
