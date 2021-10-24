@@ -4,12 +4,21 @@ const { settings } = require("../developerSettings.js");
 concurrently(
   [
     {
-      command: "yarn webpack --watch",
-      env: { DGRAM_SCKT: settings.ipcPort, DEV: true },
+      command: "yarn electron .",
+      name: "electron-main",
+      prefixColor: "blue",
+      env: {
+        DEV: true,
+        REACT_DEV_TOOLS: settings.reactDevTools ? settings.reactDevTools : "",
+        REDUX_DEV_TOOLS: settings.reduxDevTools ? settings.reduxDevTools : "",
+        GRAPHQL_DEV_TOOLS: settings.graphQLDevTools
+          ? settings.graphQLDevTools
+          : "",
+      },
     },
   ],
   {
-    prefix: "none",
+    prefix: "name",
     killOthers: ["failure", "success"],
     restartTries: 0,
   }

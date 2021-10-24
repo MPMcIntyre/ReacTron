@@ -1,8 +1,7 @@
 module.exports.settings = {
-  webpackStats: false, // If false, custom messages are displayed, else, normal webpack messages are displayed
-  electronDeferTime: 15000, // Maximum wait time (in ms) for webpack before electron starts
-  ipcPort: 6677, //ipc port for webpack to talk to DelayStart.js
-  showBundleAnalyzer: false, // Show bundle analyzer for your code and packages (bundle analyzer is always off for production)
+  webpackStats: false, // If false, minimal custom messages are displayed, else, normal webpack messages are displayed
+  showBundleAnalyzer: true, // Show bundle analyzer for your code and packages
+  ElectronReload: true, // Enable electron reloader for the main process
   bundleAnalyzerPortA: 8888, // Bundle analyzer port for renderer bundle
   bundleAnalyzerPortB: 8889, // Bundle analyzer port for main bundle
   reactDevTools: true, // Enable react developer tools extension

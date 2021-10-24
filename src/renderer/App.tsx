@@ -46,7 +46,7 @@ export default function App() {
           onClick={() => {
             openURL("https://mpmcintyre.online");
           }}>
-          Pieter Oberholzer
+          Michael McIntyre
         </span>
       </h1>
     </div>

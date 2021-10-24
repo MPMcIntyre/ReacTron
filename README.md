@@ -1,10 +1,22 @@
 <div align="CENTER"> 
     <img src="https://github.com/MPMcIntyre/personal-readme/raw/master/ReacTron.png?raw=true" width="300"/>
     <br/>
-    A dynamic boilerplate with minimalist React (server-less), linked directly to WebPack with typescript support and a custom hot relaoder out-of-the-box. Keep your source code obscure by only publishing minified code, and add almost any package with an up-to-date webpack config. Bundled with scripts to ease prodution, such as source maps for development, but removal thereof when building to production, allowing for installation of local fonts, and Chrome dev-tool extentions. This boilerplate is tailored to keep the development environment as close to production as possible by completely mitigating a dev-server. Write in `src`, develop in `dist`, and package to `release`.
+    A dynamic boilerplate with minimalist React (server-less), linked directly to WebPack with typescript support and a electron reloaders for both the renderer and the main process sperately. Keep your source code obscure by only publishing minified code, and add almost any package with an up-to-date webpack config. Bundled with scripts to ease prodution, such as source maps for development, but removal thereof when building to production, allowing for installation of local fonts, and Chrome dev-tool extentions. This boilerplate is tailored to keep the development environment as close to production as possible by completely mitigating a dev-server. Write in `src`, develop in `dist`, and package to `release`.
 </div>
 <h1>Version history:</h1>
 <ul>
+<li>1.2.0 - Major updates</li>
+  <ul>
+    <li>Audited and updated packages, waiting on electron-builder to update ansi-regex (the only vulnerabilities)</li>
+    <li>Replaced node-sass with dart-sass, reflected changes in webpack.config</li>
+    <li>Added electron-reloader-webpack-plugin (which runs the electron process) for hot-reloading the main process</li>
+    <li>Removed electron delay start scripts (depricated)</li>
+    <li>Added electron-hot-reload for reloading the browser windows instantly (and is stable)</li>
+    <li>Updated developerSettings.js to reflect core changes</li>
+    <li>Electron proces is now started with concurrently in ElectronStart.js from the webpack config</li>
+    <li>Updated readme</li>
+    <li></li>
+  </ul>
 <li>1.1.1 - Minor updates</li>
   <ul>
     <li>Update package.json (removed some bloat with security risks):</li>
@@ -43,17 +55,22 @@
 
 <h3>Settings:</h3>
 <h4>developerSettings.js</h4>
-<ul>
-  <li>webpackStats: If false, custom messages are displayed, else, normal webpack messages are displayed</li>
-  <li>electronDeferTime: Time-out time for the DelayStart.js script</li>
-  <li>ipcPort: The udp port that dgram uses for webpack to emit the compilation complete event to DelayStart.js</li>
-  <li>showBundleAnalyzer: Is used in webpack.config.js to show the bundle analyzer or not</li>
-  <li>bundleAnalyzerPortA: Bundle analyzer port for the renderer files</li>
-  <li>bundleAnalyzerPortB: Bundle analyzer port for the main files
-  <li>reactDevTools: Enable/disable react developer tools extension </li>
-  <li>reduxDevTools:  Enable/disable redux developer tools extension </li>
-  <li>graphQLDevTools: Enable/disable graphQL developer tools extension</li>
-</ul>
+
+`webpackStats`: `true|false` If false, custom messages are displayed, else, normal webpack messages are displayed
+
+`showBundleAnalyzer`: `true|false` Is used in webpack.config.js to show the bundle analyzer or not
+
+`ElectronReload`: `true|false` Used to determine if the electron-reloader-webpack-plugin is added to plugins or not for hot-reloading of the main process. If it is, it will run electron, else electron is started with exec.
+
+`bundleAnalyzerPortA`: `number` Bundle analyzer port for the renderer files
+
+`bundleAnalyzerPortB`: `number` Bundle analyzer port for the main files
+
+`reactDevTools`: `true|false` Enable/disable react developer tools extension
+
+`reduxDevTools`: `true|false` Enable/disable redux developer tools extension
+
+`graphQLDevTools`: `true|false` Enable/disable graphQL developer tools extension
 
 ### Scripts
 
@@ -61,9 +78,9 @@
 
 This script is just a placeholder for MS development environments, and can be placed inside of the packaged app to extract the .asar file for review. This script is not automatically run.
 
-#### DelayStart.js
+#### ElectronStart.js
 
-This script is one of the scripts that runs concurrently with the webpack bundler. It's sole purpouse is to simply delay until the webpack has finished bundling or until the time-out has lapsed. Once this function has completed, it closes and the StartDev.js script will launch electron.
+This script creates environment variables for the electron process during development and starts the electron process.
 
 #### Package.js
 
@@ -71,7 +88,7 @@ This script is only run when packaging the app. It provides a cleanup of .map.js
 
 #### StartDev.js
 
-This script uses concurrently (described in the commands below) to simultaniously run the webpack compiler and DelayStart. Webpack is run in watch-mode in order to compile after every save. This allows for the custom hot-reloader to detect file changes and reload the webpage upon a save.
+This script runs webpack in watch mode with defined environment variables for development mode.
 
 #### webpack.plugins.js
 
@@ -86,7 +103,7 @@ folder inside of `./src`, then added by including it in the `fonts` object insid
 
 #### Start (`yarn start` or `npm run start`)
 
-This will run the starting script which uses the <a href="https://www.npmjs.com/package/concurrently">concurrently package</a> to simultaniously start the webpack bundler and the Electron delayStart.js script. The webpack bundler uses a custom plugin that hooks into webpack and, using <a href="https://nodejs.org/api/dgram.html">dgram</a> emits a message upon completion. The delayStart script acts as the dgram host, waiting for the event. Once registered, the delay script starts the electron process. There is a time-out inside of the delay start script, this is to ensure that even if there is no event emitted, that the electron app will start, and can be edited inside of the developerSettings.js.
+This will run the starting script which uses the <a href="https://www.npmjs.com/package/concurrently">concurrently package</a> to start the webpack bundler in watch mode, which also starts the electron process. Terminate webpack with ctrl+c in the terminal to stop it from spawning an electron process.
 
 #### Rebuild (`yarn rebuild` or `npm run rebuild`)
 
