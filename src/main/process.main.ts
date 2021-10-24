@@ -1,24 +1,28 @@
+const openURL = require("open");
+const path = require("path");
 const { app, BrowserWindow, ipcMain, session } = require("electron");
 const {
   EnableHotReload,
   EnableReactDevtools,
 } = require("./utils/electron.utils");
-const openURL = require("open");
-const path = require("path");
 
-// Get application path
+// * Get application path
 var basepath = app.getAppPath();
 
-const mFile = path.join(basepath, "dist", "index.html");
-const preload = path.join(basepath, "dist", "preloadMain.js");
+// * Set up hot reloader for the renderer
+process.env.DEV && EnableHotReload(basepath);
 
+const mainHtmlFilePath = path.join(basepath, "dist", "index.html");
+const preloadFilePath = path.join(basepath, "dist", "preloadMain.js");
+
+// * A function to create a browser window, initialising with the preload file and main .html file
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       //   preload: "preload.js",
-      preload: preload,
+      preload: preloadFilePath,
       //!security
       nodeIntegration: false,
       contextIsolation: true, // protect against prototype pollution
@@ -26,13 +30,11 @@ function createWindow() {
     },
   });
 
-  if (process.env.DEV) {
-    EnableHotReload(win);
-  }
-
-  win.loadFile(mFile);
+  // * Load file
+  win.loadFile(mainHtmlFilePath);
 }
 
+// * When the app is ready, load the extensions (if in devmode), then create the window
 app.whenReady().then(async () => {
   // * Load extentions into the browser if in development mode
   process.env.DEV && (await EnableReactDevtools(session, basepath));
@@ -50,7 +52,7 @@ app.on("window-all-closed", function () {
   process.platform !== "darwin" && app.quit();
 });
 
-// // * Handle the ipcRenderer invocations with ipcMain.handle("channel", callback(event, args))
+// * Handle the ipcRenderer invocations with ipcMain.handle("channel", callback(event, args))
 ipcMain.handle("openURL", (event: {}, URL: string) => {
   console.log(`Opening ${URL}`);
   try {
