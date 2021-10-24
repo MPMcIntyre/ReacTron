@@ -1,21 +1,33 @@
 <div align="CENTER"> 
     <img src="https://github.com/MPMcIntyre/personal-readme/raw/master/ReacTron.png?raw=true" width="300"/>
     <br/>
-    A dynamic boilerplate with minimalist React (server-less), linked directly to WebPack with typescript support and a electron reloaders for both the renderer and the main process sperately. Keep your source code obscure by only publishing minified code, and add almost any package with an up-to-date webpack config. Bundled with scripts to ease prodution, such as source maps for development, but removal thereof when building to production, allowing for installation of local fonts, and Chrome dev-tool extentions. This boilerplate is tailored to keep the development environment as close to production as possible by completely mitigating a dev-server. Write in `src`, develop in `dist`, and package to `release`.
+    A dynamic boilerplate with minimalist React (server-less), linked directly to WebPack with typescript support and electron reloaders for both the renderer and the main process sperately. Keep your source code obscure by only publishing minified code, and add almost any package with an up-to-date webpack config. Bundled with scripts to ease prodution, such as source maps for development, but removal thereof when building to production, allowing for installation of local fonts, and Chrome dev-tool extentions. This boilerplate is tailored to keep the development environment as close to production as possible by completely mitigating a dev-server. Write in `src`, develop in `dist`, and package to `release`.
 </div>
 <h1>Version history:</h1>
 <ul>
-<li>1.2.0 - Major updates</li>
+<li>1.2.0 - Second major revision</li>
   <ul>
-    <li>Audited and updated packages, waiting on electron-builder to update ansi-regex (the only vulnerabilities)</li>
-    <li>Replaced node-sass with dart-sass, reflected changes in webpack.config</li>
-    <li>Added electron-reloader-webpack-plugin (which runs the electron process) for hot-reloading the main process</li>
+    <li>Audited and updated packages</li>
+      <ul>
+        <li>Waiting on electron-builder to update ansi-regex (the only 2 minor vulnerabilities)</li>
+      </ul>
+    <li>Replaced node-sass with dart-sass</li>
+      <ul>
+        <li>Node-sass is depricated, dart-sass has improved performance and continued support</li>
+        <li>Reflected changes in webpack.config</li>
+      </ul>
+    <li>Added electron-reloader-webpack-plugin for hot reloading of the main process</li>
+      <ul>
+        <li>Electron is started by this plugin unless specified otherwise in the developerSettings.js</li>
+        <li>Electron proces is started with concurrently in ElectronStart.js from the webpack config</li>
+      </ul>
     <li>Removed electron delay start scripts (depricated)</li>
-    <li>Added electron-hot-reload for reloading the browser windows instantly (and is stable)</li>
+    <li>Added electron-hot-reload</li>
+      <ul>
+        <li>This closes the issue regarding the custom hot reloader (<a href="https://github.com/MPMcIntyre/ReacTron/issues/1">#1</a>)</li>
+      </ul>
     <li>Updated developerSettings.js to reflect core changes</li>
-    <li>Electron proces is now started with concurrently in ElectronStart.js from the webpack config</li>
     <li>Updated readme</li>
-    <li></li>
   </ul>
 <li>1.1.1 - Minor updates</li>
   <ul>
