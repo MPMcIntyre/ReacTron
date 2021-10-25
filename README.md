@@ -108,14 +108,14 @@ This file contains custom webpack plugins that use webpack hooks to detect failu
 
 #### Installing local fonts:
 
-Fonts can be downloaded in any html supported format (.ttf, woff2, etc.), added to the `font`
-folder inside of `./src`, then added by including it in the `fonts` object inside of `renderer.main.tsx`. Remember that it is an object that uses the name of the font file as the object key (string), and the font format as the value e.g. `fonts = {Questrial:"ttf"}`.
+Fonts can be downloaded in any html supported format (.ttf, woff2, etc.), added to the
+folder `./src/renderer/fonts`, then added by including it in the `fonts` object inside of `renderer.main.tsx`. Remember that it is an object that uses the name of the font file as the object key (string), and the font format as the value e.g. `fonts = {Questrial:"ttf"}`.
 
 # Commands:
 
 #### Start (`yarn start` or `npm run start`)
 
-This will run the starting script which uses the <a href="https://www.npmjs.com/package/concurrently">concurrently package</a> to start the webpack bundler in watch mode, which also starts the electron process. Terminate webpack with ctrl+c in the terminal to stop it from spawning an electron process.
+This will run the starting script which uses the <a href="https://www.npmjs.com/package/concurrently">concurrently package</a> to start the webpack bundler in watch mode, which also starts the electron process. Terminate webpack with ctrl+c in the terminal to stop it from spawning an electron process, or save in one of the main process files to restart or start an electron process when killed.
 
 #### Rebuild (`yarn rebuild` or `npm run rebuild`)
 
@@ -123,21 +123,28 @@ This uses electron-builder to install app dependancies and rebuild npm packages 
 
 #### Package (`yarn package` or `npm run package`)
 
-This script starts the Package.js script, which cleans up the `./dist` folder, runs webpack in production mode, then uses electron-builder to package the app for the current platform. Settings for electron builder can be altered inside of the package.json file.
+This script starts the Package.js script, which cleans up the `./dist` folder, runs webpack in production mode, then uses electron-builder to package the app for the current platform. Settings for electron builder can be altered inside of the package.json file. 
+
+*PLEASE NOTE: When packaging for the first time, ensure that you have an internet connection, electron-builder needs to download when it is first run, otherwise you will recieve an error with code "ERR_ELECTRON_BUILDER_CANNOT_EXECUTE"*
 
 #### Postinstall
 
 This script is used as a hook for electron-builder.
 
-<div align="CENTER"> 
+
 <h2>Notes:</h2>
 When using the developer tools, it is common to see error messages regarding the manifest key and permissions. This is normal, and the extensions still work as normal.
 <h1></h1>
 The local paths for the main process and renderer process differ as the renderer is executed by the index.html file. Thus ensure, for the main process, to include the `./dist/` folder as your base when accessing assets or other material.
+
+<div align="CENTER"> 
+    
 <h1></h1>
 This template was created to ease the development process for myself, yet I think there might be a few people that prefer to use a simplistic serverless setup such as this one. There is still plenty of work that will go into this template, but it will be incremental. If you like this project and wish to support me, please feel free to buy me a coffee or something.
 
+
 <br/>
+    
 <a href="https://github.com/sponsors/MPMcIntyre" target="_blank" rel="noreferrer"> 
   <img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=<url>" alt="githubSponsors-img"/>
 </a>
