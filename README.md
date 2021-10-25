@@ -1,8 +1,15 @@
 <div align="CENTER"> 
     <img src="https://github.com/MPMcIntyre/personal-readme/raw/master/ReacTron.png?raw=true" width="300"/>
-    <br/>
-    A dynamic boilerplate with minimalist React (server-less), linked directly to WebPack with typescript support and electron reloaders for both the renderer and the main process sperately. Keep your source code obscure by only publishing minified code, and add almost any package with an up-to-date webpack config. Bundled with scripts to ease prodution, such as source maps, allowing for installation of local fonts (.ttf, .woff2, etc.), and Chrome dev-tool extentions. This boilerplate is tailored to keep the development environment as close to production as possible by completely mitigating a dev-server. Write in `src`, develop in `dist`, and package to `release`.
 </div>
+
+<span align="CENTER">
+    
+# Make electron app development simple 
+    
+A dynamic boilerplate with minimalist React (server-less), linked directly to WebPack with typescript support and electron reloaders for both the renderer and the main process sperately. Keep your source code obscure by only publishing minified code, and add almost any package with an up-to-date webpack config. Bundled with scripts to ease prodution, such as source maps, allowing for installation of local fonts (.ttf, .woff2, etc.), and Chrome dev-tool extentions. This boilerplate is tailored to keep the development environment as close to production as possible by completely mitigating a dev-server. Write in `./src`, develop in `./dist`, and package to `./release`.
+    
+</span>
+
 <h1>Version history:</h1>
 <ul>
 <li>1.2.0 - Second major revision</li>
@@ -133,20 +140,26 @@ _PLEASE NOTE: When packaging for the first time, ensure that you have an interne
 
 This script is used as a hook for electron-builder.
 
+<span align="CENTER"> 
+    
 <h2>Notes:</h2>
+    
 When using the developer tools, it is common to see error messages regarding the manifest key and permissions. This is normal, and the extensions still work as normal.
-<h1></h1>
-The local paths for the main process and renderer process differ as the renderer is executed by the index.html file. Thus ensure, for the main process, to include the `./dist/` folder as your base when accessing assets or other material.
-
-<div align="CENTER"> 
     
 <h1></h1>
+    
+The local paths for the main process and renderer process differ as the renderer is executed by the index.html file. Thus ensure, for the main process, to include the `./dist/` folder as your base when accessing assets or other material.
+    
+<h1></h1>
+    
 This template was created to ease the development process for myself, yet I think there might be a few people that prefer to use a simplistic serverless setup such as this one. There is still plenty of work that will go into this template, but it will be incremental. If you like this project and wish to support me, please feel free to buy me a coffee or something.
+    
+</span>
 
-<br/>
+<div align="CENTER">
     
 <a href="https://github.com/sponsors/MPMcIntyre" target="_blank" rel="noreferrer"> 
   <img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=<url>" alt="githubSponsors-img"/>
 </a>
-
+    
 </div>
