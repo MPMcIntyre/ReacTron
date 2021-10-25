@@ -35,8 +35,7 @@ release
 dist/*.js
 dist/*.txt
 dist/*.map
-dist/*.bundle.html
-*.bundle.html
+# scripts/Webpack-Bundle-Analyzer (Packaged)/*.bundle.html
 
 # Secrets
 .env
