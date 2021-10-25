@@ -67,7 +67,7 @@ const rendererProcessPlugins = [
 if ((process.env.DEV && !settings.ElectronReload) || !process.env.DEV) {
   mainProcessPlugins.pop();
   process.env.DEV &&
-    exec("electron .", (err, stdout, stderr) => {
+    exec("node ./scripts/ElectronStart.js", (err, stdout, stderr) => {
       if (err) console.log(err);
     });
 }
