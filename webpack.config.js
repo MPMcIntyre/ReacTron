@@ -1,5 +1,4 @@
 console.log("Initializing");
-const ThreadsPlugin = require("threads-plugin");
 const { settings } = require("./developerSettings");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ElectronReloaderPlugin = require("electron-reloader-webpack-plugin");
@@ -47,7 +46,6 @@ const mainProcessPlugins = [
     ),
     analyzerPort: settings.bundleAnalyzerPortB,
   }),
-  new ThreadsPlugin(),
   new ElectronReloaderPlugin("node", ["./scripts/ElectronStart.js"]),
 ];
 
