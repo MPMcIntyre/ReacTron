@@ -45,7 +45,7 @@ concurrently(
   {
     prefix: "name",
     killOthers: ["failure", "success"],
-    restartTries: 3,
+    restartTries: 0,
   }
 ).then(
   function onSuccess(exitInfo) {

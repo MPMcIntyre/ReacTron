@@ -1,7 +1,7 @@
 <div align="CENTER"> 
     <img src="https://github.com/MPMcIntyre/personal-readme/raw/master/ReacTron.png?raw=true" width="300"/>
     <br/>
-    A dynamic boilerplate with minimalist React (server-less), linked directly to WebPack with typescript support and electron reloaders for both the renderer and the main process sperately. Keep your source code obscure by only publishing minified code, and add almost any package with an up-to-date webpack config. Bundled with scripts to ease prodution, such as source maps for development, but removal thereof when building to production, allowing for installation of local fonts, and Chrome dev-tool extentions. This boilerplate is tailored to keep the development environment as close to production as possible by completely mitigating a dev-server. Write in `src`, develop in `dist`, and package to `release`.
+    A dynamic boilerplate with minimalist React (server-less), linked directly to WebPack with typescript support and electron reloaders for both the renderer and the main process sperately. Keep your source code obscure by only publishing minified code, and add almost any package with an up-to-date webpack config. Bundled with scripts to ease prodution, such as source maps, allowing for installation of local fonts (.ttf, .woff2, etc.), and Chrome dev-tool extentions. This boilerplate is tailored to keep the development environment as close to production as possible by completely mitigating a dev-server. Write in `src`, develop in `dist`, and package to `release`.
 </div>
 <h1>Version history:</h1>
 <ul>
@@ -72,6 +72,8 @@
 
 `showBundleAnalyzer`: `true|false` Is used in webpack.config.js to show the bundle analyzer or not
 
+`emitBundleAnalyzerOnPackage`: `true|false` Emits bundle analyzer .html files in `./scripts` for your code and packages upon packaging
+
 `ElectronReload`: `true|false` Used to determine if the electron-reloader-webpack-plugin is added to plugins or not for hot-reloading of the main process. If it is, it will run electron, else electron is started with exec.
 
 `bundleAnalyzerPortA`: `number` Bundle analyzer port for the renderer files
@@ -123,14 +125,13 @@ This uses electron-builder to install app dependancies and rebuild npm packages 
 
 #### Package (`yarn package` or `npm run package`)
 
-This script starts the Package.js script, which cleans up the `./dist` folder, runs webpack in production mode, then uses electron-builder to package the app for the current platform. Settings for electron builder can be altered inside of the package.json file. 
+This script starts the Package.js script, which cleans up the `./dist` folder, runs webpack in production mode, then uses electron-builder to package the app for the current platform. Settings for electron builder can be altered inside of the package.json file.
 
-*PLEASE NOTE: When packaging for the first time, ensure that you have an internet connection, electron-builder needs to download when it is first run, otherwise you will recieve an error with code "ERR_ELECTRON_BUILDER_CANNOT_EXECUTE"*
+_PLEASE NOTE: When packaging for the first time, ensure that you have an internet connection, electron-builder needs to download when it is first run, otherwise you will recieve an error with code "ERR_ELECTRON_BUILDER_CANNOT_EXECUTE"_
 
 #### Postinstall
 
 This script is used as a hook for electron-builder.
-
 
 <h2>Notes:</h2>
 When using the developer tools, it is common to see error messages regarding the manifest key and permissions. This is normal, and the extensions still work as normal.
@@ -141,7 +142,6 @@ The local paths for the main process and renderer process differ as the renderer
     
 <h1></h1>
 This template was created to ease the development process for myself, yet I think there might be a few people that prefer to use a simplistic serverless setup such as this one. There is still plenty of work that will go into this template, but it will be incremental. If you like this project and wish to support me, please feel free to buy me a coffee or something.
-
 
 <br/>
     
