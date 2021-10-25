@@ -13,53 +13,59 @@ const {
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-var analyzer = process.env.DEV
-  ? settings.showBundleAnalyzer
-    ? "server"
-    : "disabled"
-  : settings.showBundleAnalyzer
-  ? "static"
-  : "disabled"; //Webpack-bundle-analyzer
-// * Different development environments require different variables
-if (process.env.DEV) {
-  var devmode = "development"; //Webpack devmode option
-  var devTool = "source-map"; //Webpack devtool
-} else {
-  var devmode = "production";
-  var devTool = false;
-}
+// Bundle analyzer path for html files on packaging
+const bundleAnalyzerPath = path.join(
+  __dirname,
+  "scripts",
+  "Webpack-Bundle-Analyzer (Packaged)"
+);
+
+var devTool = "source-map"; //Webpack devtool
 var stats = settings.webpackStats === true ? "normal" : "none";
 
-// * Plugin array for the main process
+// Different development environments require different variables
+if (process.env.DEV) {
+  var analyzer = settings.showBundleAnalyzer ? "server" : "disabled";
+  var devmode = "development"; //Webpack devmode option
+} else {
+  var analyzer = settings.emitBundleAnalyzerOnPackage ? "static" : "disabled"; //Webpack-bundle-analyzer
+  var devmode = "production";
+}
+
+// Plugin array for the main process
 const mainProcessPlugins = [
   new declareCurrentPack("Electron main", {
     showStats: settings.webpackStats ? false : true,
   }),
   new BundleAnalyzerPlugin({
     analyzerMode: analyzer,
-    reportFilename: "main.bundle.html",
+    reportFilename: path.join(
+      __dirname,
+      "scripts",
+      "Webpack-Bundle-Analyzer (Packaged)",
+      "main.bundle.html"
+    ),
     analyzerPort: settings.bundleAnalyzerPortB,
   }),
   new ThreadsPlugin(),
   new ElectronReloaderPlugin("node", ["./scripts/ElectronStart.js"]),
 ];
 
-// * Plugin array for the renderer process
+// Plugin array for the renderer process
 const rendererProcessPlugins = [
   new declareCurrentPack("Electron renderer", {
     showStats: settings.webpackStats ? false : true,
   }),
   new BundleAnalyzerPlugin({
     analyzerMode: analyzer,
-    reportFilename: "renderer.bundle.html",
+    reportFilename: path.join(bundleAnalyzerPath, "renderer.bundle.html"),
     analyzerPort: settings.bundleAnalyzerPortA,
   }),
   new HtmlWebpackPlugin({ template: "./src/index.html" }),
 ];
 
-console.log(process.env.DEV);
-// * If the webpack is in production mode or developer settings.ElectronReload is false
-// * remove the reloader plugin as to not restart it on every save
+// If the webpack is in production mode or developer settings.ElectronReload is false
+// remove the reloader plugin as to not restart it on every save
 if ((process.env.DEV && !settings.ElectronReload) || !process.env.DEV) {
   mainProcessPlugins.pop();
   process.env.DEV &&
@@ -68,27 +74,27 @@ if ((process.env.DEV && !settings.ElectronReload) || !process.env.DEV) {
     });
 }
 
-// * Copy font files over
+// Copy font files over
 FontLoader();
 
-// * Copy asset files over
+// Copy asset files over
 AssetLoader();
 
-// * General rule-set and loaders can remain similar for both renderer and main
+// General rule-set and loaders can remain similar for both renderer and main
 const globalRuleSet = [
-  // * Javascript
+  // Javascript
   {
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
     use: ["ts-loader", "source-map-loader"],
   },
-  // * Typescript
+  // Typescript
   {
     test: /\.(ts|tsx)$/,
     exclude: /node_modules/,
     use: ["ts-loader", "source-map-loader"],
   },
-  // * Styling (css, scss, sass)
+  // Styling (css, scss, sass)
   {
     test: /\.(css|scss|sass)$/,
     exclude: /node_modules/,
@@ -105,19 +111,20 @@ const globalRuleSet = [
       "source-map-loader",
     ],
   },
-  // * Files
+  // Files
   {
     test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
     exclude: /node_modules/,
     use: ["file-loader", "source-map-loader"],
   },
+  // Node
   {
     test: /.node$/,
     loader: "node-loader",
   },
 ];
 
-// * Main webpack export
+// Main webpack export
 module.exports = [
   // ! Electron renderer
   {
