@@ -14,6 +14,7 @@
     "postinstall": "webpack --mode production &&  electron-builder install-app-deps"
   },
   "dependencies": {
+    "css-loader": "^6.7.1",
     "open": "^8.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -95,7 +96,6 @@
     "@types/react-dom": "^17.0.8",
     "@types/react-router-dom": "^5.1.8",
     "concurrently": "^6.2.0",
-    "css-loader": "^5.2.6",
     "dart-sass": "^1.25.0",
     "electron": "^13.1.4",
     "electron-builder": "^22.13.1",
