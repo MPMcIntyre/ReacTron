@@ -11,10 +11,9 @@
     "electron:start": "electron .",
     "rebuild": "electron-builder install-app-deps",
     "package": "node ./scripts/Package",
-    "postinstall": "webpack --mode production &&  electron-builder install-app-deps"
+    "postinstall": "webpack --mode production && electron-builder install-app-deps"
   },
   "dependencies": {
-    "css-loader": "^6.7.1",
     "open": "^8.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -50,10 +49,12 @@
       ]
     },
     "win": {
+      "installerIcon": "./dist/assets/icons/win/icon.ico",
       "icon": "./dist/assets/icons/win/icon.ico",
       "target": [
         "nsis"
-      ]
+      ],
+      "allowElevation": "true"
     },
     "linux": {
       "target": [
@@ -96,6 +97,7 @@
     "@types/react-dom": "^17.0.8",
     "@types/react-router-dom": "^5.1.8",
     "concurrently": "^6.2.0",
+    "css-loader": "^6.7.1",
     "dart-sass": "^1.25.0",
     "electron": "^13.1.4",
     "electron-builder": "^22.13.1",

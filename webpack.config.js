@@ -1,76 +1,15 @@
-console.log("Initializing");
 const { settings } = require("./developerSettings");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ElectronReloaderPlugin = require("electron-reloader-webpack-plugin");
+
 const path = require("path");
-const { exec } = require("child_process");
+const { FontLoader, AssetLoader } = require("./scripts/webpack/webpack.utils");
 const {
-  declareCurrentPack,
-  FontLoader,
-  AssetLoader,
-} = require("./scripts/webpack.plugins");
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+  ReacTronPluginSpecifier,
+} = require("./scripts/webpack/webpack.plugins");
 
-// Bundle analyzer path for html files on packaging
-const bundleAnalyzerPath = path.join(
-  __dirname,
-  "scripts",
-  "Webpack-Bundle-Analyzer (Packaged)"
-);
-
-var devTool = "source-map"; //Webpack devtool
 var stats = settings.webpackStats === true ? "normal" : "none";
 
-// Different development environments require different variables
-if (process.env.DEV) {
-  var analyzer = settings.showBundleAnalyzer ? "server" : "disabled";
-  var devmode = "development"; //Webpack devmode option
-} else {
-  var analyzer = settings.emitBundleAnalyzerOnPackage ? "static" : "disabled"; //Webpack-bundle-analyzer
-  var devmode = "production";
-}
-
-// Plugin array for the main process
-const mainProcessPlugins = [
-  new declareCurrentPack("Electron main", {
-    showStats: settings.webpackStats ? false : true,
-  }),
-  new BundleAnalyzerPlugin({
-    analyzerMode: analyzer,
-    reportFilename: path.join(
-      __dirname,
-      "scripts",
-      "Webpack-Bundle-Analyzer (Packaged)",
-      "main.bundle.html"
-    ),
-    analyzerPort: settings.bundleAnalyzerPortB,
-  }),
-  new ElectronReloaderPlugin("node", ["./scripts/ElectronStart.js"]),
-];
-
-// Plugin array for the renderer process
-const rendererProcessPlugins = [
-  new declareCurrentPack("Electron renderer", {
-    showStats: settings.webpackStats ? false : true,
-  }),
-  new BundleAnalyzerPlugin({
-    analyzerMode: analyzer,
-    reportFilename: path.join(bundleAnalyzerPath, "renderer.bundle.html"),
-    analyzerPort: settings.bundleAnalyzerPortA,
-  }),
-  new HtmlWebpackPlugin({ template: "./src/index.html" }),
-];
-
-// If the webpack is in production mode or developer settings.ElectronReload is false
-// remove the reloader plugin as to not restart it on every save
-if ((process.env.DEV && !settings.ElectronReload) || !process.env.DEV) {
-  mainProcessPlugins.pop();
-  process.env.DEV &&
-    exec("node ./scripts/ElectronStart.js", (err, stdout, stderr) => {
-      if (err) console.log(err);
-    });
-}
+let devmode = process.env.DEV ? "development" : "production";
+const webpackPlugins = new ReacTronPluginSpecifier(process.env.DEV, settings);
 
 // Copy font files over
 FontLoader();
@@ -138,11 +77,11 @@ module.exports = [
       filename: "[name].js",
       path: path.resolve(__dirname, "dist"),
     },
-    devtool: devTool,
+    devtool: "source-map",
     module: {
       rules: globalRuleSet,
     },
-    plugins: rendererProcessPlugins,
+    plugins: webpackPlugins.rendererProcessPlugins,
     resolve: {
       extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
       modules: ["node_modules", "src"],
@@ -164,11 +103,11 @@ module.exports = [
       filename: "[name].js",
       path: path.resolve(__dirname, "dist"),
     },
-    devtool: devTool,
+    devtool: "source-map",
     module: {
       rules: globalRuleSet,
     },
-    plugins: mainProcessPlugins,
+    plugins: webpackPlugins.mainProcessPlugins,
     resolve: {
       extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
       modules: ["node_modules", "src"],

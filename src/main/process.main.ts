@@ -15,13 +15,12 @@ process.env.DEV && EnableHotReload(basepath);
 const mainHtmlFilePath = path.join(basepath, "dist", "index.html");
 const preloadFilePath = path.join(basepath, "dist", "preloadMain.js");
 
-// * A function to create a browser window, initialising with the preload file and main .html file
+//  A function to create a browser window, initialising with the preload file and main .html file
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      //   preload: "preload.js",
       preload: preloadFilePath,
       //!security
       nodeIntegration: false,
@@ -30,13 +29,11 @@ function createWindow() {
     },
   });
 
-  // * Load file
   win.loadFile(mainHtmlFilePath);
 }
 
-// * When the app is ready, load the extensions (if in devmode), then create the window
+//  When the app is ready, load the extensions (if in devmode), then create the window
 app.whenReady().then(async () => {
-  // * Load extentions into the browser if in development mode
   process.env.DEV && (await EnableReactDevtools(session, basepath));
 
   createWindow();
@@ -47,12 +44,12 @@ app.whenReady().then(async () => {
   });
 });
 
-// * Close app when all windows are closed, except if on macOS
+//  Close app when all windows are closed, except if on macOS
 app.on("window-all-closed", function () {
   process.platform !== "darwin" && app.quit();
 });
 
-// * Handle the ipcRenderer invocations with ipcMain.handle("channel", callback(event, args))
+//  Handle the ipcRenderer invocations with ipcMain.handle("channel", callback(event, args))
 ipcMain.handle("openURL", (event: {}, URL: string) => {
   console.log(`Opening ${URL}`);
   try {
