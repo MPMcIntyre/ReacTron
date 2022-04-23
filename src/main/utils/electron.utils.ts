@@ -32,9 +32,6 @@ export async function EnableReactDevtools(session: any, basepath: string) {
     "0.1.2"
   );
 
-  // Make the console log dark
-  console.log("\x1b[2m Ignore warning messages if there are any");
-
   // * Install the devtools into the browser window if the developerSettings is set to true
   process.env.REACT_DEV_TOOLS && (await installDevTools(ReactDevToolPath));
   process.env.REDUX_DEV_TOOLS && (await installDevTools(ReduxDevToolPath));
@@ -54,7 +51,4 @@ export async function EnableReactDevtools(session: any, basepath: string) {
       console.log(err);
     }
   }
-  // Restore the console
-  console.log("\x1b[0m ");
-  console.log("Ignore the previous warnings if there are any");
 }
