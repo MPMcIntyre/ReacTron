@@ -5,6 +5,14 @@
 </div>
 <h1>Version history:</h1>
 <ul>
+
+<li>1.2.1 - Minor revision</li>
+  <ul>
+    <li>Removed electron start script (unesessary)</li>
+    <li>Audited and updated packages</li>
+    <li>Refactored messy webpack file into scripts</li>
+    <li>Removed Chrome addons that caused warning messages</li>
+  </ul>
 <li>1.2.0 - Second major revision</li>
   <ul>
     <li>Audited and updated packages</li>
