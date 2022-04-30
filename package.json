@@ -3,7 +3,7 @@
   "productName": "ReacTron",
   "description": "Create electron apps with React fast",
   "homepage": "https://www.github.com/MPMcintyre",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "./dist/main.js",
   "license": "MIT",
   "scripts": {
