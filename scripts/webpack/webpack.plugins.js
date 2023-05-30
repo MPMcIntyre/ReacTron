@@ -18,6 +18,8 @@ const bundleAnalyzerPath = path.join(
 module.exports.ReacTronPluginSpecifier = class {
   constructor(dev_env, settings) {
     // Different development environments require different variables
+    if (dev_env === undefined) {
+    }
     if (dev_env) {
       this.analyzer = settings.showBundleAnalyzer ? "server" : "disabled";
     } else {
@@ -43,7 +45,6 @@ module.exports.ReacTronPluginSpecifier = class {
         ),
         analyzerPort: settings.bundleAnalyzerPortB,
       }),
-      new ElectronReloaderPlugin("yarn", [" electron ."]),
     ];
 
     // Plugin array for the renderer process
@@ -61,13 +62,14 @@ module.exports.ReacTronPluginSpecifier = class {
 
     // If the webpack is in production mode or developer settings.ElectronReload is false
     // remove the reloader plugin as to not restart it on every save
-    if ((dev_env && !settings.ElectronReload) || !dev_env) {
-      mainProcessPlugins.pop();
-      dev_env &&
+    if ((!dev_env && settings.ElectronReload) ) {
+      this.mainProcessPlugins.append( new ElectronReloaderPlugin("yarn", [" electron ."]));
+      if (dev_env === true) {
         exec("yarn electron .", (err, stdout, stderr) => {
           if (err) console.log(err);
           return;
         });
+      }
     }
   }
 };

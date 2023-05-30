@@ -3,7 +3,7 @@
   "productName": "ReacTron",
   "description": "Create electron apps with React fast",
   "homepage": "https://www.github.com/MPMcintyre",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "./dist/main.js",
   "license": "MIT",
   "scripts": {
@@ -49,12 +49,10 @@
       ]
     },
     "win": {
-      "installerIcon": "./dist/assets/icons/win/icon.ico",
       "icon": "./dist/assets/icons/win/icon.ico",
       "target": [
         "nsis"
-      ],
-      "allowElevation": "true"
+      ]
     },
     "linux": {
       "target": [
@@ -99,8 +97,8 @@
     "concurrently": "^6.2.0",
     "css-loader": "^6.7.1",
     "dart-sass": "^1.25.0",
-    "electron": "^13.1.4",
-    "electron-builder": "^22.13.1",
+    "electron": "^25.0.0",
+    "electron-builder": "^23.6.0",
     "electron-hot-reload": "^0.1.4",
     "electron-notarize": "^1.0.0",
     "electron-reloader-webpack-plugin": "^1.0.2",

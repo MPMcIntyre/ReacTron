@@ -7,7 +7,9 @@ const {
 } = require("./scripts/webpack/webpack.plugins");
 
 var stats = settings.webpackStats === true ? "normal" : "none";
-
+if (process.env.DEV === undefined) {
+  process.env.DEV = true;
+}
 let devmode = process.env.DEV ? "development" : "production";
 const webpackPlugins = new ReacTronPluginSpecifier(process.env.DEV, settings);
 
